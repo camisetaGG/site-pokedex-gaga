@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pokédex — Enciclopédia Interativa & Álbum de Cartas</title>
+<meta name="description" content="Pokédex moderna com cartas colecionáveis holográficas, tipos, estatísticas, movimentos e evoluções.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔴</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ======================= HEADER ======================= -->
+<header class="site-header" id="siteHeader">
+  <div class="header-inner">
+    <a class="logo" href="#home" aria-label="Pokédex — página inicial">
+      <span class="logo__ball" aria-hidden="true"></span>
+      <span class="logo__text">Poké<em>dex</em></span>
+    </a>
+
+    <nav class="main-nav" id="mainNav" aria-label="Navegação principal">
+      <a href="#pokedex" data-nav="pokedex">Pokédex</a>
+      <a href="#types" data-nav="types">Tipos</a>
+      <a href="#collection" data-nav="collection">Minha Coleção</a>
+      <a href="#home" data-nav="sobre" id="navSobre">Sobre</a>
+    </nav>
+
+    <div class="header-actions">
+      <div class="global-search" role="search">
+        <label class="sr-only" for="globalSearch">Pesquisar Pokémon</label>
+        <span class="global-search__icon" aria-hidden="true">🔍</span>
+        <input id="globalSearch" type="search" placeholder="Buscar Pokémon..."
+               autocomplete="off" aria-expanded="false" aria-controls="searchResults"
+               aria-autocomplete="list">
+        <div class="search-results" id="searchResults" role="listbox"
+             aria-label="Resultados da busca" hidden></div>
+      </div>
+      <button class="btn btn--ghost btn--random" id="randomBtn" type="button" title="Pokémon aleatório">
+        <span aria-hidden="true">🎲</span><span class="btn__label">Aleatório</span>
+      </button>
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="Abrir menu"
+              aria-expanded="false" aria-controls="mainNav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ======================= VIEW: HOME ======================= -->
+<section class="page-view" id="page-home">
+  <div class="hero">
+    <div class="hero__orb hero__orb--1" aria-hidden="true"></div>
+    <div class="hero__orb hero__orb--2" aria-hidden="true"></div>
+    <div class="container hero__inner">
+      <div class="hero__text">
+        <span class="pill">✨ Enciclopédia interativa • 1025 Pokémon</span>
+        <h1>Explore o mundo <span class="grad-text">Pokémon</span> em uma Pokédex de colecionador.</h1>
+        <p class="hero__lead">
+          Tipos, estatísticas, habilidades, movimentos e linhas evolutivas — tudo em um só lugar,
+          com cartas colecionáveis holográficas que reagem ao seu mouse.
+        </p>
+        <div class="hero__actions">
+          <a class="btn btn--primary btn--lg" href="#pokedex">
+            <span aria-hidden="true">📖</span> Explorar Pokédex
+          </a>
+          <button class="btn btn--ghost btn--lg" id="randomBtnHero" type="button">
+            <span aria-hidden="true">🎲</span> Pokémon Aleatório
+          </button>
+        </div>
+        <ul class="hero__stats">
+          <li><strong>1025</strong><span>Pokémon</span></li>
+          <li><strong>18</strong><span>Tipos</span></li>
+          <li><strong>9</strong><span>Gerações</span></li>
+          <li><strong>∞</strong><span>Coleção</span></li>
+        </ul>
+      </div>
+
+      <div class="hero__visual">
+        <div class="hero__glow" aria-hidden="true"></div>
+        <div class="hero__card-wrap" id="featuredWrap">
+          <div class="skeleton skeleton--card" aria-hidden="true"></div>
+        </div>
+      </div>
+    </div>
+    <div class="hero__scroll" aria-hidden="true">role para descobrir</div>
+  </div>
+
+  <div class="section" id="populares">
+    <div class="container">
+      <header class="section-head">
+        <div>
+          <span class="eyebrow">Destaques</span>
+          <h2>Pokémon <span class="grad-text">populares</span></h2>
+          <p>Os favoritos dos treinadores, prontos para virar carta.</p>
+        </div>
+        <a class="btn btn--ghost" href="#pokedex">Ver todos <span aria-hidden="true">→</span></a>
+      </header>
+      <div class="pokemon-grid" id="popularGrid" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <div class="section section--alt" id="tipos">
+    <div class="container">
+      <header class="section-head">
+        <div>
+          <span class="eyebrow">Elementos</span>
+          <h2>Escolha um <span class="grad-text">tipo</span></h2>
+          <p>Cada tipo tem sua própria energia, cor e personalidade.</p>
+        </div>
+        <a class="btn btn--ghost" href="#types">Explorar tipos <span aria-hidden="true">→</span></a>
+      </header>
+      <div class="type-chip-grid" id="typeChips"></div>
+    </div>
+  </div>
+
+  <div class="section" id="sobre">
+    <div class="container">
+      <header class="section-head section-head--center">
+        <div>
+          <span class="eyebrow">Sobre o projeto</span>
+          <h2>Uma Pokédex que também é um <span class="grad-text">álbum digital</span></h2>
+        </div>
+      </header>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <span class="feature-card__icon" aria-hidden="true">🔎</span>
+          <h3>Busca inteligente</h3>
+          <p>Pesquise por nome, número ou tipo com debounce e resultados instantâneos.</p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-card__icon" aria-hidden="true">🃏</span>
+          <h3>Cartas holográficas</h3>
+          <p>Cada Pokémon ganha uma carta premium com brilho que acompanha o movimento do mouse.</p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-card__icon" aria-hidden="true">📊</span>
+          <h3>Dados completos</h3>
+          <p>Stats animados, habilidades, movimentos detalhados e linha evolutiva clicável.</p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-card__icon" aria-hidden="true">💾</span>
+          <h3>Sua coleção</h3>
+          <p>Favorite Pokémon e monte seu álbum — salvo automaticamente no seu navegador.</p>
+        </article>
+      </div>
+      <div class="about-box">
+        <div class="about-box__text">
+          <h3>Feito com tecnologia web pura</h3>
+          <p>
+            Este projeto usa apenas <strong>HTML5</strong>, <strong>CSS3</strong> e
+            <strong>JavaScript puro</strong> — sem frameworks. Todos os dados vêm da
+            <strong>PokéAPI</strong> através de <code>fetch()</code>, com cache em memória,
+            debounce e carregamento preguiçoso de imagens.
+          </p>
+        </div>
+        <a class="btn btn--primary" href="#pokedex">Começar a explorar</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= VIEW: POKÉDEX ======================= -->
+<section class="page-view page" id="page-pokedex" hidden>
+  <div class="container">
+    <header class="page-head">
+      <span class="eyebrow">Enciclopédia</span>
+      <h1>Pokédex <span class="grad-text">completa</span></h1>
+      <p>Filtre, ordene e descubra. Clique em qualquer Pokémon para abrir a carta colecionável.</p>
+    </header>
+
+    <section class="dex-toolbar" aria-label="Ferramentas de busca e filtro">
+      <div class="dex-search">
+        <label class="sr-only" for="dexSearch">Pesquisar por nome, número ou tipo</label>
+        <span class="dex-search__icon" aria-hidden="true">🔍</span>
+        <input id="dexSearch" type="search" placeholder="Digite o nome ou número..." autocomplete="off">
+      </div>
+      <div class="dex-filters">
+        <div class="field">
+          <label for="filterType">Tipo</label>
+          <select id="filterType"><option value="">Todos os tipos</option></select>
+        </div>
+        <div class="field">
+          <label for="filterGen">Geração</label>
+          <select id="filterGen">
+            <option value="">Todas as gerações</option>
+            <option value="1">Geração I (1–151)</option>
+            <option value="2">Geração II (152–251)</option>
+            <option value="3">Geração III (252–386)</option>
+            <option value="4">Geração IV (387–493)</option>
+            <option value="5">Geração V (494–649)</option>
+            <option value="6">Geração VI (650–721)</option>
+            <option value="7">Geração VII (722–809)</option>
+            <option value="8">Geração VIII (810–905)</option>
+            <option value="9">Geração IX (906–1025)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="filterSort">Ordenar por</label>
+          <select id="filterSort">
+            <option value="number">Número (crescente)</option>
+            <option value="number-desc">Número (decrescente)</option>
+            <option value="name">Nome (A–Z)</option>
+            <option value="name-desc">Nome (Z–A)</option>
+            <option value="attack">Ataque</option>
+            <option value="defense">Defesa</option>
+            <option value="speed">Velocidade</option>
+            <option value="total">Total de stats</option>
+          </select>
+        </div>
+        <button class="btn btn--ghost" id="clearFilters" type="button">
+          <span aria-hidden="true">✕</span> Limpar filtros
+        </button>
+      </div>
+    </section>
+
+    <div class="dex-meta">
+      <p id="dexCount" aria-live="polite">Carregando Pokédex...</p>
+      <p class="dex-hint" id="dexHint"></p>
+    </div>
+
+    <div class="pokemon-grid" id="dexGrid" aria-live="polite"></div>
+
+    <div class="dex-more">
+      <button class="btn btn--primary" id="loadMore" type="button" hidden>Carregar mais</button>
+      <div id="dexSentinel" aria-hidden="true"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= VIEW: POKÉMON ======================= -->
+<section class="page-view page" id="page-pokemon" hidden>
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Você está aqui">
+      <a href="#home">Início</a>
+      <span aria-hidden="true">/</span>
+      <a href="#pokedex">Pokédex</a>
+      <span aria-hidden="true">/</span>
+      <span id="crumbName">Carregando...</span>
+    </nav>
+    <div id="pokemonContent" class="detail-root"></div>
+  </div>
+</section>
+
+<!-- ======================= VIEW: TIPOS ======================= -->
+<section class="page-view page" id="page-types" hidden>
+  <div class="container">
+    <header class="page-head">
+      <span class="eyebrow">Elementos</span>
+      <h1>Os <span class="grad-text">18 tipos</span> Pokémon</h1>
+      <p>Cada tipo possui energia, fraquezas e resistências próprias. Escolha um e explore.</p>
+    </header>
+    <div class="type-grid" id="typeGrid" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- ======================= VIEW: COLEÇÃO ======================= -->
+<section class="page-view page" id="page-collection" hidden>
+  <div class="container">
+    <header class="page-head page-head--album">
+      <div>
+        <span class="eyebrow">Álbum digital</span>
+        <h1>Minha <span class="grad-text">Coleção</span></h1>
+        <p>Suas cartas favoritas ficam salvas neste navegador.</p>
+      </div>
+      <div class="album-counter" aria-live="polite">
+        <strong id="colCount">0</strong>
+        <span>/ 1025 Pokémon</span>
+      </div>
+    </header>
+
+    <div class="collection-bar">
+      <div class="dex-search">
+        <label class="sr-only" for="colSearch">Filtrar coleção por nome</label>
+        <span class="dex-search__icon" aria-hidden="true">🔍</span>
+        <input id="colSearch" type="search" placeholder="Filtrar por nome ou número..." autocomplete="off">
+      </div>
+      <div class="field">
+        <label for="colType">Tipo</label>
+        <select id="colType"><option value="">Todos os tipos</option></select>
+      </div>
+      <button class="btn btn--danger" id="clearCollection" type="button">
+        <span aria-hidden="true">🗑</span> Limpar coleção
+      </button>
+    </div>
+
+    <div class="album-progress" aria-hidden="true">
+      <div class="album-progress__bar" id="albumBar"></div>
+    </div>
+
+    <div class="pokemon-grid" id="collectionGrid" aria-live="polite"></div>
+  </div>
+</section>
+
+</main>
+
+<!-- ======================= FOOTER ======================= -->
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <a class="logo" href="#home">
+        <span class="logo__ball" aria-hidden="true"></span>
+        <span class="logo__text">Poké<em>dex</em></span>
+      </a>
+      <p>Enciclopédia interativa e álbum digital de cartas Pokémon.</p>
+    </div>
+    <nav class="footer-col" aria-label="Navegação do rodapé">
+      <h4>Navegar</h4>
+      <a href="#pokedex">Pokédex</a>
+      <a href="#types">Tipos</a>
+      <a href="#collection">Minha Coleção</a>
+      <a href="#home">Sobre</a>
+    </nav>
+    <div class="footer-col">
+      <h4>Dados</h4>
+      <a href="https://pokeapi.co/" target="_blank" rel="noopener noreferrer">PokéAPI</a>
+      <a href="https://pokeapi.co/docs/v2" target="_blank" rel="noopener noreferrer">Documentação</a>
+      <a href="https://github.com/PokeAPI/sprites" target="_blank" rel="noopener noreferrer">Sprites</a>
+    </div>
+    <div class="footer-col footer-col--wide">
+      <h4>Aviso</h4>
+      <p class="footer-note">
+        Projeto de fã, sem fins comerciais. Pokémon e todos os nomes relacionados são marcas
+        registradas da Nintendo, Game Freak e The Pokémon Company. Este site não é afiliado a elas.
+      </p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <span>© <span id="year"></span> Pokédex Fan Project</span>
+      <span>Dados fornecidos pela PokéAPI</span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
